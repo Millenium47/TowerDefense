@@ -7,6 +7,7 @@
 radius = 41.4367
 
 [node name="Enemy" type="PathFollow2D"]
+loop = false
 script = ExtResource( 2 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
