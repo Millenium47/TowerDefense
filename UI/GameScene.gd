@@ -6,6 +6,7 @@ onready var grid := $Gameboard/Grid
 
 var map_node
 
+var current_wave = 0
 var build_mode = false
 var build_valid = false
 var build_location
@@ -18,7 +19,15 @@ func _process(delta):
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
-		
+
+func _unhandled_input(event):
+	if event.is_action_released("ui_cancel") and build_mode:
+		cancel_build_mode()
+	if event.is_action_released("ui_accept") and build_mode:
+		verify_and_build()
+		cancel_build_mode()
+
+
 func initiate_build_mode(building_type):
 	build_type = building_type
 	build_mode = true
@@ -38,4 +47,12 @@ func update_tower_preview():
 		build_valid = false
 
 func cancel_build_mode():
-	pass
+	build_mode = false
+	build_valid = false
+	UI.get_node("BuildingPreview").queue_free()
+
+func verify_and_build():
+	if build_valid:
+		var new_building = load("res://objects/buildings/ArrowTower.tscn").instance()
+		new_building.position = gameboard.calculate_map_position(build_location)
+		grid.add_child(new_building, true)
