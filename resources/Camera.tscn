@@ -3,5 +3,5 @@
 [ext_resource path="res://resources/Camera.gd" type="Script" id=1]
 
 [node name="Camera2D" type="Camera2D"]
-position = Vector2( 638, 361 )
+smoothing_enabled = true
 script = ExtResource( 1 )

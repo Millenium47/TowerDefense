@@ -10,11 +10,11 @@ onready var enemy_camp = preload("res://objects/buildings/EnemyCamp.tscn")
 
 enum BUILDABLE {TRUE = 0, FALSE = 1}
 
-export var cell_size := Vector2(32, 32)
+export var cell_size := Vector2(64, 64)
 
-var enemy = preload("res://objects/enemies/Enemy.tscn").instance()
+var basic_enemy = preload("res://objects/enemies/Enemy.tscn").instance()
 var elite = preload("res://objects/enemies/Elite.tscn").instance()
-var enemies = [elite, enemy]
+var enemies = [elite, basic_enemy]
 
 var cells setget set_cells, get_cells
 
@@ -41,19 +41,19 @@ func _spawn_next_wave(value, camp_name):
 		value -= num_to_spawn * enemy.cost
 
 		for i in range(0, num_to_spawn):
-			print(i)
 			enemies_to_spawn.append(enemy.duplicate())
 
+	if value != 0:
+		for leftover in value:
+			enemies_to_spawn.append(basic_enemy.duplicate())
+		
 	_spawn_enemies(enemies_to_spawn, camp_name)	
 		
 func _spawn_enemies(enemies_to_spawn, camp_name):
 	var current_path = enemy_paths.get_node(camp_name)
-	print("name: ",camp_name)
-
-	for child in enemy_paths.get_children():
-		print(child.get_name())
 
 	for enemy in enemies_to_spawn:
+		yield(get_tree().create_timer(0.75), "timeout")
 		current_path.add_child(enemy)
 
 func _spawn_castle():

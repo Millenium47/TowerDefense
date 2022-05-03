@@ -4,7 +4,6 @@
 [ext_resource path="res://objects/buildings/EnemyCamp.gd" type="Script" id=2]
 
 [node name="EnemyCamp" type="Node2D"]
-scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

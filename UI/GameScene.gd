@@ -2,7 +2,7 @@ extends Node2D
 
 onready var UI := $UI
 onready var gameboard := $Gameboard
-onready var grid := $Gameboard/Grid
+onready var grid := $YSort/Background
 
 var map_node
 
