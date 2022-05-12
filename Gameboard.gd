@@ -40,7 +40,7 @@ func _spawn_next_wave(value, camp_name):
 		var num_to_spawn = randi() % (value/enemy.cost + 1)
 		value -= num_to_spawn * enemy.cost
 
-		for i in range(0, num_to_spawn):
+		for _i in range(0, num_to_spawn):
 			enemies_to_spawn.append(enemy.duplicate())
 
 	if value != 0:

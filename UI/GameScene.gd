@@ -12,7 +12,7 @@ var build_valid = false
 var build_location
 var build_type
 
-func _process(delta):
+func _process(_delta):
 	if build_mode:
 		update_tower_preview()
 
@@ -49,7 +49,7 @@ func update_tower_preview():
 func cancel_build_mode():
 	build_mode = false
 	build_valid = false
-	UI.get_node("BuildingPreview").queue_free()
+	UI.get_node("Preview/BuildingPreview").queue_free()
 
 func verify_and_build():
 	if build_valid:
