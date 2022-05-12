@@ -2,6 +2,7 @@ extends Node2D
 
 onready var UI := $UI
 onready var gameboard := $Gameboard
+onready var buildable := $Gameboard/YSort/Background
 onready var background := $Gameboard/YSort/Background
 
 var map_node
@@ -25,8 +26,6 @@ func _unhandled_input(event):
 		cancel_build_mode()
 	if event.is_action_released("ui_accept") and build_mode:
 		verify_and_build()
-		cancel_build_mode()
-
 
 func initiate_build_mode(building_type):
 	build_type = building_type
@@ -38,7 +37,7 @@ func update_tower_preview():
 	var current_cell = background.world_to_map(mouse_position) #(15,2)
 	#grid.map_to_world(current_cell) (128,128)
 
-	if current_cell in gameboard.get_cells():
+	if current_cell in buildable.get_used_cells_by_id(0):
 		UI.update_building_preview(gameboard.calculate_map_position(current_cell), "ad54ff3c")
 		build_valid = true
 		build_location = current_cell
@@ -53,6 +52,9 @@ func cancel_build_mode():
 
 func verify_and_build():
 	if build_valid:
-		var new_building = load("res://objects/buildings/ArrowTower.tscn").instance()
+		var new_building = load("res://objects/buildings/" + build_type + ".tscn").instance()
 		new_building.position = gameboard.calculate_map_position(build_location)
+		new_building.built = true
+		new_building.type = build_type
 		background.add_child(new_building, true)
+		cancel_build_mode()

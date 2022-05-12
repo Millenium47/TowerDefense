@@ -1,14 +1,15 @@
 extends Node
 
-var building_data = {
+var buildings = {
 	"Castle": {
 		"health": 10,
 		"buildings": 10
 	},
-	"ArrowTower": {
+	"Tower": {
 		"damage": 10,
 		"range": 350,
-		"rof": 1
+		"rof": 1,
+		"cost": 10
 	}
 	
 }

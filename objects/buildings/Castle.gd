@@ -3,8 +3,8 @@ extends Node2D
 signal destroyed
 
 var cell
-var max_health = GameData.building_data["Castle"]["health"]
-var max_num_buildings = GameData.building_data["Castle"]["buildings"]
+var max_health = GameData.buildings["Castle"]["health"]
+var max_num_buildings = GameData.buildings["Castle"]["buildings"]
 
 var health = max_health setget set_health
 var num_buildings = max_num_buildings

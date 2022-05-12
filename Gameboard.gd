@@ -12,11 +12,11 @@ enum BUILDABLE {TRUE = 0, FALSE = 1}
 
 export var cell_size := Vector2(64, 64)
 
-var basic_enemy = preload("res://objects/enemies/Enemy.tscn").instance()
+var basic_enemy = preload("res://objects/enemies/Basic.tscn").instance()
 var elite = preload("res://objects/enemies/Elite.tscn").instance()
 var enemies = [elite, basic_enemy]
 
-var cells setget set_cells, get_cells
+var cells setget , get_cells
 
 #my_group_members = get_tree().get_nodes_in_group("enemy_camps")
 var enemy_camps = []
@@ -27,9 +27,11 @@ func _ready():
 	cells = background.get_used_cells_by_id(0)
 	_spawn_castle()
 	_spawn_enemy_camp(Vector2(7, 6))	
+	_spawn_enemy_camp(Vector2(9, 9))
 	_spawn_enemy_camp(Vector2(15, 20))	
 	
-	_spawn_next_wave(10, "EnemyCamp0")
+
+	_spawn_next_wave(10, "EnemyCamp1")
 	
 	
 func _spawn_next_wave(value, camp_name):
@@ -39,16 +41,16 @@ func _spawn_next_wave(value, camp_name):
 		randomize()
 		var num_to_spawn = randi() % (value/enemy.cost + 1)
 		value -= num_to_spawn * enemy.cost
-
+		
 		for _i in range(0, num_to_spawn):
 			enemies_to_spawn.append(enemy.duplicate())
-
+			
 	if value != 0:
 		for leftover in value:
 			enemies_to_spawn.append(basic_enemy.duplicate())
 		
 	_spawn_enemies(enemies_to_spawn, camp_name)	
-		
+
 func _spawn_enemies(enemies_to_spawn, camp_name):
 	var current_path = enemy_paths.get_node(camp_name)
 
@@ -115,6 +117,3 @@ func calculate_map_position(grid_position: Vector2) -> Vector2:
 
 func get_cells():
 	return cells
-
-func set_cells(_id):
-	cells = background.get_used_cells_by_id(_id)
