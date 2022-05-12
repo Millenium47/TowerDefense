@@ -2,7 +2,7 @@ extends Node2D
 
 onready var UI := $UI
 onready var gameboard := $Gameboard
-onready var grid := $YSort/Background
+onready var background := $Gameboard/YSort/Background
 
 var map_node
 
@@ -35,7 +35,7 @@ func initiate_build_mode(building_type):
 	
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
-	var current_cell = grid.world_to_map(mouse_position) #(15,2)
+	var current_cell = background.world_to_map(mouse_position) #(15,2)
 	#grid.map_to_world(current_cell) (128,128)
 
 	if current_cell in gameboard.get_cells():
@@ -55,4 +55,4 @@ func verify_and_build():
 	if build_valid:
 		var new_building = load("res://objects/buildings/ArrowTower.tscn").instance()
 		new_building.position = gameboard.calculate_map_position(build_location)
-		grid.add_child(new_building, true)
+		background.add_child(new_building, true)
