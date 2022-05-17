@@ -9,7 +9,7 @@ var dragging = false
 var threshold = 100
 var step = 15
 
-func _process(delta):
+func _process(_delta):
 	var local_mouse_pos = get_local_mouse_position()
 	if local_mouse_pos.x < threshold:
 		position.x -= step

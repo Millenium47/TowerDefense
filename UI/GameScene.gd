@@ -4,6 +4,7 @@ onready var UI := $UI
 onready var gameboard := $Gameboard
 onready var buildable := $Gameboard/YSort/Background
 onready var background := $Gameboard/YSort/Background
+onready var buildings := $Gameboard/YSort/Background/Buildings
 
 var map_node
 
@@ -19,6 +20,7 @@ func _process(_delta):
 
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
+		print(i.get_name())
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
 
 func _unhandled_input(event):
@@ -30,7 +32,7 @@ func _unhandled_input(event):
 func initiate_build_mode(building_type):
 	build_type = building_type
 	build_mode = true
-	UI.set_building_preview(build_type, get_global_mouse_position())
+	UI.set_building_preview(build_type)
 	
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
@@ -56,5 +58,5 @@ func verify_and_build():
 		new_building.position = gameboard.calculate_map_position(build_location)
 		new_building.built = true
 		new_building.type = build_type
-		background.add_child(new_building, true)
+		buildings.add_child(new_building, true)
 		cancel_build_mode()

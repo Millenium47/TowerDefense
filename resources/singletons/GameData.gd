@@ -5,8 +5,8 @@ var buildings = {
 		"health": 10,
 		"buildings": 10
 	},
-	"Tower": {
-		"damage": 10,
+	"ArrowTower": {
+		"damage": 2,
 		"range": 350,
 		"rof": 1,
 		"cost": 10

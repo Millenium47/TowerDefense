@@ -41,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tower" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
+[node name="ArrowTower" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_right = 120.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 120, 120 )
@@ -49,7 +49,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource( 3 )
 expand = true
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/Tower"]
+[node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/ArrowTower"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0

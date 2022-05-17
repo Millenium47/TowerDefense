@@ -1,5 +1,7 @@
 extends Tower
 
-func _physics_process(delta):
-	pass
-	
+onready var arrow = preload("res://objects/projectiles/Arrow.tscn")
+
+func _ready():
+	shoot_position = $ShootPosition.position
+	projectile = arrow

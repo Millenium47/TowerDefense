@@ -3,7 +3,7 @@ extends CanvasLayer
 onready var background := $Preview
 var building
 
-func set_building_preview(building_type, mouse_position):
+func set_building_preview(building_type):
 	building = load("res://objects/buildings/" + building_type + ".tscn").instance()
 	#building = load("res://objects/buildings/Tower.tscn").instance()
 	building.set_name(building_type)
@@ -14,7 +14,7 @@ func set_building_preview(building_type, mouse_position):
 	control.rect_global_position = Vector2.ZERO
 	control.set_name("BuildingPreview")
 	background.add_child(control, true)
-	background.move_child(get_node("BuildingPreview"),0)
+	#background.move_child(get_node("BuildingPreview"),0)
 	
 func update_building_preview(new_position, color):
 	background.get_node("BuildingPreview").rect_global_position = new_position

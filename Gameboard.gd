@@ -33,7 +33,6 @@ func _ready():
 
 	_spawn_next_wave(10, "EnemyCamp1")
 	
-	
 func _spawn_next_wave(value, camp_name):
 	var enemies_to_spawn = []
 	
