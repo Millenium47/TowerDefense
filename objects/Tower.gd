@@ -6,6 +6,7 @@ var enemy
 var type
 var shoot_position
 var projectile
+var damage
 var ready = true
 var built = false
 
@@ -22,13 +23,13 @@ func _physics_process(_delta):
 
 func _fire():
 	ready = false
-	#enemy.on_hit(GameData.buildings[type]["damage"])
 	_spawn_projectile(enemy.global_position)
 	yield(get_tree().create_timer(GameData.buildings[type]["rof"]), "timeout")
 	ready = true
 
 func _spawn_projectile(_current_enemy_pos):
 	var _projectile = projectile.instance()
+	_projectile.set_damage(damage)
 	_projectile.global_position = shoot_position
 	_projectile.rotation = Vector2(1,0).angle_to((_current_enemy_pos - global_position).normalized())
 	add_child(_projectile)

@@ -36,11 +36,14 @@ func _ready():
 func _spawn_next_wave(value, camp_name):
 	var enemies_to_spawn = []
 	
+	for v in GameData.enemies.values():
+		print(v.cost)
+	
 	for enemy in enemies:
 		randomize()
 		var num_to_spawn = randi() % (value/enemy.cost + 1)
 		value -= num_to_spawn * enemy.cost
-		
+
 		for _i in range(0, num_to_spawn):
 			enemies_to_spawn.append(enemy.duplicate())
 			
