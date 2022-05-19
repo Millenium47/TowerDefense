@@ -58,5 +58,6 @@ func verify_and_build():
 		new_building.position = gameboard.calculate_map_position(build_location)
 		new_building.built = true
 		new_building.type = build_type
+		background.set_cellv(build_location, 1)
 		buildings.add_child(new_building, true)
 		cancel_build_mode()

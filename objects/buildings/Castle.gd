@@ -17,5 +17,7 @@ func _destroy() -> void:
 	# Make a deferred call to prevent errors
 	$Hurtbox.set_deferred("monitorable", false)
 
-func _on_Hurtbox_hit_landed(damage):
-	set_health(health - damage)
+func _on_Hurtbox_area_entered(hitbox):
+	set_health(health - hitbox.damage)
+	if health <= 0:
+		_destroy()

@@ -36,20 +36,22 @@ func _ready():
 func _spawn_next_wave(value, camp_name):
 	var enemies_to_spawn = []
 	
-	for v in GameData.enemies.values():
-		print(v.cost)
-	
+	# randomly generate number of each enemies
 	for enemy in enemies:
 		randomize()
 		var num_to_spawn = randi() % (value/enemy.cost + 1)
 		value -= num_to_spawn * enemy.cost
 
 		for _i in range(0, num_to_spawn):
-			enemies_to_spawn.append(enemy.duplicate())
-			
+			var new_enemy = enemy.duplicate()
+			new_enemy.set_damage(enemy.damage)
+			enemies_to_spawn.append(new_enemy)
+	# fill leftover capacity with basic enemies		
 	if value != 0:
 		for leftover in value:
-			enemies_to_spawn.append(basic_enemy.duplicate())
+			var new_enemy = basic_enemy.duplicate()
+			new_enemy.set_damage(1)
+			enemies_to_spawn.append(new_enemy)
 		
 	_spawn_enemies(enemies_to_spawn, camp_name)	
 
@@ -57,12 +59,13 @@ func _spawn_enemies(enemies_to_spawn, camp_name):
 	var current_path = enemy_paths.get_node(camp_name)
 
 	for enemy in enemies_to_spawn:
-		yield(get_tree().create_timer(0.75), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
 		current_path.add_child(enemy)
 
 func _spawn_castle():
 	castle.cell = Vector2(30, 15)
 	castle.position = calculate_map_position(castle.cell)
+	background.set_cellv(castle.cell, BUILDABLE.FALSE)
 	buildings.add_child(castle)
 
 func _spawn_enemy_camp(spawn_position):
@@ -70,6 +73,7 @@ func _spawn_enemy_camp(spawn_position):
 	var new_enemy_camp_num = "EnemyCamp"+str(enemy_camps.size())
 	new_enemy_camp.cell = spawn_position
 	new_enemy_camp.position = calculate_map_position(new_enemy_camp.cell)
+	background.set_cellv(new_enemy_camp.cell, BUILDABLE.FALSE)
 	new_enemy_camp.set_name(new_enemy_camp_num)
 	buildings.add_child(new_enemy_camp)
 	
@@ -85,7 +89,7 @@ func _create_road_to_castle(new_enemy_camp):
 		roads.set_cellv(cell, 0)
 		roads.update_bitmask_area(cell)
 		
-	#remove autotiling overlay on buildings
+	# remove autotiling overlay on buildings
 	roads.set_cellv(path_to_castle[0], -1)
 	roads.set_cellv(path_to_castle[path_to_castle.size()-1], -1)
 	

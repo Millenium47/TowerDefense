@@ -46,6 +46,7 @@ position = Vector2( 0, 16 )
 shape = SubResource( 3 )
 
 [connection signal="area_entered" from="KinematicBody2D/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_entered" from="KinematicBody2D/Hitbox" to="." method="_on_Hitbox_area_entered"]
 
 [editable path="KinematicBody2D/Hurtbox"]
 [editable path="KinematicBody2D/Hitbox"]

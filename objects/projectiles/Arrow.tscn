@@ -20,7 +20,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -1, -8 )
+position = Vector2( 7.15256e-06, 2 )
 shape = SubResource( 1 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
