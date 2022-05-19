@@ -33,7 +33,7 @@ func _ready():
 
 	_spawn_next_wave(10, "EnemyCamp1")
 	
-func _spawn_next_wave(value, camp_name):
+func _spawn_next_wave(value: int, camp_name: String) -> void:
 	var enemies_to_spawn = []
 	
 	# randomly generate number of each enemies
@@ -55,20 +55,20 @@ func _spawn_next_wave(value, camp_name):
 		
 	_spawn_enemies(enemies_to_spawn, camp_name)	
 
-func _spawn_enemies(enemies_to_spawn, camp_name):
+func _spawn_enemies(enemies_to_spawn: Array, camp_name: String) -> void:
 	var current_path = enemy_paths.get_node(camp_name)
 
 	for enemy in enemies_to_spawn:
 		yield(get_tree().create_timer(1), "timeout")
 		current_path.add_child(enemy)
 
-func _spawn_castle():
+func _spawn_castle() -> void:
 	castle.cell = Vector2(30, 15)
 	castle.position = calculate_map_position(castle.cell)
 	background.set_cellv(castle.cell, BUILDABLE.FALSE)
 	buildings.add_child(castle)
 
-func _spawn_enemy_camp(spawn_position):
+func _spawn_enemy_camp(spawn_position: Vector2) -> void:
 	var new_enemy_camp = enemy_camp.instance()
 	var new_enemy_camp_num = "EnemyCamp"+str(enemy_camps.size())
 	new_enemy_camp.cell = spawn_position
@@ -81,7 +81,7 @@ func _spawn_enemy_camp(spawn_position):
 	
 	enemy_camps.append(new_enemy_camp)
 
-func _create_road_to_castle(new_enemy_camp):
+func _create_road_to_castle(new_enemy_camp: EnemyCamp) -> void:
 	var path_to_castle = astar.get_astar_path(cells, roads.get_used_cells_by_id(0), new_enemy_camp.cell, castle.cell)
 
 	for cell in path_to_castle:
@@ -98,14 +98,14 @@ func _create_road_to_castle(new_enemy_camp):
 	new_enemy_path.set_name(new_enemy_camp.get_name())
 	enemy_paths.add_child(new_enemy_path)
 
-func _create_enemy_curve(path) -> Curve2D:
+func _create_enemy_curve(path: PoolVector2Array) -> Curve2D:
 	var enemy_curve = Curve2D.new()
 	for cell in path:
 		enemy_curve.add_point(calculate_map_position(cell))
 
 	return enemy_curve
 
-func _create_rounded_enemy_curve(path) -> Curve2D:
+func _create_rounded_enemy_curve(path: PoolVector2Array) -> Curve2D:
 	var enemy_curve = Curve2D.new()
 	enemy_curve.add_point(calculate_map_position(path[0]))
 	for i in path.size()-1:
@@ -121,5 +121,5 @@ func _create_rounded_enemy_curve(path) -> Curve2D:
 func calculate_map_position(grid_position: Vector2) -> Vector2:
 	return grid_position * cell_size + cell_size/2
 
-func get_cells():
+func get_cells() -> Array:
 	return cells

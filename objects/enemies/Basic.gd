@@ -5,6 +5,3 @@ func _init():
 	health = GameData.enemies["Basic"]["health"]
 	cost = GameData.enemies["Basic"]["cost"]
 	damage = GameData.enemies["Basic"]["damage"]
-	
-func set_damage(damage):
-	$KinematicBody2D/Hitbox.damage = damage

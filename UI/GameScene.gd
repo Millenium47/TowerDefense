@@ -20,7 +20,6 @@ func _process(_delta):
 
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
-		print(i.get_name())
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
 
 func _unhandled_input(event):
@@ -29,12 +28,12 @@ func _unhandled_input(event):
 	if event.is_action_released("ui_accept") and build_mode:
 		verify_and_build()
 
-func initiate_build_mode(building_type):
+func initiate_build_mode(building_type: String) -> void:
 	build_type = building_type
 	build_mode = true
 	UI.set_building_preview(build_type)
 	
-func update_tower_preview():
+func update_tower_preview() -> void:
 	var mouse_position = get_global_mouse_position()
 	var current_cell = background.world_to_map(mouse_position) #(15,2)
 	#grid.map_to_world(current_cell) (128,128)
@@ -47,12 +46,12 @@ func update_tower_preview():
 		UI.update_building_preview(gameboard.calculate_map_position(current_cell), "adff4545")
 		build_valid = false
 
-func cancel_build_mode():
+func cancel_build_mode() -> void:
 	build_mode = false
 	build_valid = false
 	UI.get_node("Preview/BuildingPreview").queue_free()
 
-func verify_and_build():
+func verify_and_build() -> void:
 	if build_valid:
 		var new_building = load("res://objects/buildings/" + build_type + ".tscn").instance()
 		new_building.position = gameboard.calculate_map_position(build_location)
