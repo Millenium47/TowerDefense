@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/Hurtbox.gd"
 }, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://objects/Player.gd"
+}, {
 "base": "Node2D",
 "class": "Projectile",
 "language": "GDScript",
@@ -44,6 +49,7 @@ _global_script_class_icons={
 "EnemyCamp": "",
 "HitBox": "",
 "HurtBox": "",
+"Player": "",
 "Projectile": "",
 "Tower": ""
 }

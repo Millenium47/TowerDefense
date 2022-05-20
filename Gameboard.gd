@@ -1,5 +1,7 @@
 extends Node2D
 
+signal gold_earned(gold_amount)
+
 onready var background := $YSort/Background
 onready var roads := $YSort/Background/Roads
 onready var buildings := $YSort
@@ -18,7 +20,6 @@ var enemies = [elite, basic_enemy]
 
 var cells setget , get_cells
 
-#my_group_members = get_tree().get_nodes_in_group("enemy_camps")
 var enemy_camps = []
 
 func _ready():
@@ -46,7 +47,7 @@ func _spawn_next_wave(value: int, camp_name: String) -> void:
 			var new_enemy = enemy.duplicate()
 			new_enemy.set_damage(enemy.damage)
 			enemies_to_spawn.append(new_enemy)
-	# fill leftover capacity with basic enemies		
+	# fill leftover capacity with basic enemies
 	if value != 0:
 		for leftover in value:
 			var new_enemy = basic_enemy.duplicate()
@@ -59,8 +60,12 @@ func _spawn_enemies(enemies_to_spawn: Array, camp_name: String) -> void:
 	var current_path = enemy_paths.get_node(camp_name)
 
 	for enemy in enemies_to_spawn:
+		enemy.connect("enemy_died", self, "_enemy_died")
 		yield(get_tree().create_timer(1), "timeout")
 		current_path.add_child(enemy)
+
+func _enemy_died(gold_earned: int) -> void:
+	emit_signal("gold_earned", gold_earned)
 
 func _spawn_castle() -> void:
 	castle.cell = Vector2(30, 15)
