@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/images/buildings/tower.png" type="Texture" id=1]
 [ext_resource path="res://objects/buildings/ArrowTower.gd" type="Script" id=2]
+[ext_resource path="res://resources/Selectable.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 137.364
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 32 )
 
 [node name="ArrowTower" type="Node2D"]
 script = ExtResource( 2 )
@@ -20,6 +24,12 @@ offset = Vector2( 0, -6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 1 )
+
+[node name="SelectableArea" parent="." instance=ExtResource( 3 )]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectableArea"]
+shape = SubResource( 2 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]
