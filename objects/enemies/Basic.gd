@@ -5,3 +5,4 @@ func _init():
 	health = GameData.enemies["Basic"]["health"]
 	cost = GameData.enemies["Basic"]["cost"]
 	damage = GameData.enemies["Basic"]["damage"]
+	current_health = health	

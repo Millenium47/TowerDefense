@@ -32,7 +32,7 @@ func _ready():
 	_spawn_enemy_camp(Vector2(15, 20))	
 	
 
-	_spawn_next_wave(10, "EnemyCamp1")
+	_spawn_next_wave(1, "EnemyCamp1")
 	
 func _spawn_next_wave(value: int, camp_name: String) -> void:
 	var enemies_to_spawn = []

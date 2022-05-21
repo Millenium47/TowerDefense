@@ -5,6 +5,7 @@ signal enemy_died(gold)
 
 var speed
 var health
+var current_health
 var cost
 var damage
 
@@ -19,8 +20,10 @@ func _on_destroy() -> void:
 	queue_free()
 
 func _on_Hurtbox_area_entered(hitbox: Area2D) -> void:
-	health -= hitbox.damage
-	if health <= 0:
+	current_health -= hitbox.damage
+	var progress =int(float(float (current_health) / float (health)) * 100)
+	get_node("HPBar").value = progress
+	if current_health <= 0:
 		_on_destroy()
 		
 func _on_Hitbox_area_entered(_hurtbox: Area2D) -> void:
